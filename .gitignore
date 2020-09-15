@@ -1,0 +1,4 @@
+build/*
+kernel.elf
+*.o
+.vscode
