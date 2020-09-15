@@ -1,3 +1,6 @@
+#ifndef STIVALE_H
+#define STIVALE_H
+
 #include <stdint.h>
 
 struct stivale_header {
@@ -34,3 +37,5 @@ struct stivale_struct {
   uint64_t epoch;
   uint64_t flags;  // bit 0: 1 if booted with BIOS, 0 if booted with UEFI
 } __attribute__((packed));
+
+#endif

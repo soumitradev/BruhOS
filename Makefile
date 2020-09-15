@@ -1,6 +1,6 @@
 
-CXXFILES    := $(shell find src/ -type f -name '*.cpp')
-CXXC         = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-g++
+CXXFILES  := $(shell find src/ -type f -name '*.cpp')
+CXXC       = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-g++
 LD         = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-ld
 OBJ       := $(CXXFILES:.cpp=.o)
 KERNEL_HDD = build/disk.hdd
@@ -33,7 +33,7 @@ LDHARDFLAGS := $(LDFLAGS)   \
 
 disk: $(KERNEL_HDD)
 run: $(KERNEL_HDD)
-	qemu-system-x86_64 -m 2G -hda $(KERNEL_HDD)
+	qemu-system-x86_64 -m 2G -drive format=raw,media=disk,index=0,file=$(KERNEL_HDD)
 
 %.o: %.cpp
 	$(CXXC) $(CXXHARDFLAGS) -c $< -o $@
