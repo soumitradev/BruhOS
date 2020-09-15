@@ -9,6 +9,8 @@ PREFIX="$(pwd)"
 TARGET=x86_64-elf
 BINUTILSVERSION=2.35
 GCCVERSION=10.2.0
+GDBVERSION=9.2
+
 
 if [ -z "$MAKEFLAGS" ]; then
 	MAKEFLAGS="$1"
@@ -35,11 +37,15 @@ fi
 if [ ! -f gcc-$GCCVERSION.tar.gz ]; then
     wget -4 https://ftp.gnu.org/gnu/gcc/gcc-$GCCVERSION/gcc-$GCCVERSION.tar.gz # Same as above
 fi
+if [ ! -f gdb-$GDBVERSION.tar.gz ]; then
+    wget -4 https://ftp.gnu.org/gnu/gdb/gdb-$GDBVERSION.tar.gz # Same as above
+fi
 
 tar -xf binutils-$BINUTILSVERSION.tar.gz
 tar -xf gcc-$GCCVERSION.tar.gz
+tar -xf gdb-$GDBVERSION.tar.gz
 
-rm -rf build-gcc build-binutils
+rm -rf build-gcc build-binutils build-gdb
 
 mkdir build-binutils
 cd build-binutils
@@ -58,3 +64,11 @@ make all-gcc
 make all-target-libgcc
 make install-gcc
 make install-target-libgcc
+cd ..
+
+mkdir build-gdb
+cd build-gdb
+../gdb-$GCCVERSION/configure --target=$TARGET --prefix="$PREFIX"
+make
+make install
+cd ..

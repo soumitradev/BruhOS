@@ -17,8 +17,21 @@ After installing the cross compiler, you can run `make run`
 
 ### Setup
 
-Running the `install.sh` script will install the cross compiler at `~/.local/bin/cross_compiler/x86_64/`. The cross compiler binaries have the prefix `x86-64-elf-`. So, to run gcc, you will have to run `~/.local/bin/cross_compiler/x86_64/bin/x86-64-elf-gcc`.
+Running the `install.sh` script will install the cross compiler at `~/.local/bin/cross_compiler/x86_64/`. It includes gcc, gdb, and binutils. The cross compiler binaries have the prefix `x86-64-elf-`. So for example, to run gcc, you will have to run `~/.local/bin/cross_compiler/x86_64/bin/x86-64-elf-gcc`.
 
-As of writing, the latest gcc and binutils versions are 10.2.0 and 2.35 respectively. If you want a different version, replace the `BINUTILSVERSION` and `GCCVERSION` variables in the same `install.sh` script.
+As of writing, the latest gcc, dgb and binutils versions are 10.2.0, 9.2 and 2.35 respectively. If you want a different version, replace the `BINUTILSVERSION`, `GCCVERSION`, and `GDBVERSION` variables in the same `install.sh` script.
 
 **Note:** Don't run this script as superuser. Running the script will require a stable internet connection and a cup of coffee because it takes a while ;)
+
+## Contributions
+All files use the C++ 17 standard, don't use any standard library except libgcc (obvious for OS/Kernel development). All object files and kernel build files should be cleaned before commit using `make clean` or manually deleting the files. The gitignore includes some basic filters, but always double check you aren't committing any build artefacts.
+
+All files except the Makefile are space indented with an Indent with of 2 spaces. Yes, I like 4 spaces, but having some previous experience, this can generate huge tree like structures, and it looks cleaner with 2 space indentation. The Makefile requires tab indentation by definition. Formatting it will cause it to break.
+
+Make sure you are using the `Google` formatting guidelines. This can be set in VS Code.
+
+**Don't push any commits without testing and making sure they work.**
+
+**If the basic features work as they are intended to be used, push your commits. I don't expect you to forsee every security flaw and patch it before pushing.**
+
+I might add a pre-push check script later that makes sure that your code follows these standards.
