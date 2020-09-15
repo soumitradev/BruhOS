@@ -1,9 +1,7 @@
-#include <stdint.h>
 #include <stivale.h>
 
 #define VGA_ADDRESS 0xb8000
-#define VGA_COLOR(character, color) \
-  ((uint16_t)(character) | (uint16_t)(color) << 8)
+#define VGA_COLOR(character, color) ((uint16_t)(character) | (uint16_t)(color) << 8)
 #define VGA_BLACK 0
 #define VGA_BLUE 1
 #define VGA_GREEN 2
@@ -34,7 +32,7 @@ __attribute__((section(".stivalehdr"), used)) struct stivale_header header = {
     .framebuffer_bpp = 0,
     .entry_point = 0};
 extern "C" void kmain(struct stivale_struct *bootloader_data) {
-  volatile uint16_t *vga_buffer = (uint16_t *)0xb8000;
-  vga_buffer[0] = VGA_COLOR('X', VGA_GREEN);
-  asm volatile("hlt");
+    volatile uint16_t *vga_buffer = (uint16_t *)0xb8000;
+    vga_buffer[0] = VGA_COLOR('X', VGA_GREEN);
+    asm volatile("hlt");
 }
