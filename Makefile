@@ -1,7 +1,7 @@
 
 CFILES    := $(shell find src/ -type f -name '*.cpp')
-CC         = g++
-LD         = ld
+CC         = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-g++
+LD         = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-ld
 OBJ       := $(CFILES:.cpp=.o)
 KERNEL_HDD = build/disk.hdd
 KERNEL_ELF = kernel.elf
