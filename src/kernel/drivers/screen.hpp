@@ -1,5 +1,4 @@
-#ifndef TEST_H
-#define TEST_H
+#pragma once
 
 #include <stdint.h>
 
@@ -24,5 +23,3 @@
 #define VGA_WHITE 15
 
 void test();
-
-#endif

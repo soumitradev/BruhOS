@@ -20,13 +20,13 @@ CXXHARDFLAGS := $(CXXFLAGS)      \
 	-ffreestanding                 \
 	-fno-stack-protector           \
 	-fno-omit-frame-pointer        \
-	-I src/                        \
+	-Isrc                          \
 
 LDHARDFLAGS := $(LDFLAGS)   \
 	-nostdlib                 \
 	-no-pie                   \
 	-z max-page-size=0x1000   \
-	-T src/linker.ld
+	-T linker.ld
 
 .PHONY: clean
 .DEFAULT_GOAL = $(KERNEL_HDD)
