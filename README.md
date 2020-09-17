@@ -4,7 +4,7 @@ I tried making an OS in [assembly-fun](https://github.com/soumitradev/assembly-f
 
 I'm using the [limine bootloader](https://github.com/limine-bootloader/limine) with the stivale protocol.
 
-Since this repo uses an older version of Limine as a submodule, you will have to clone this repo recursively using:
+Since this repo uses Limine as a submodule, you will have to clone this repo recursively using:
 ```
 git clone --recursive https://github.com/soumitradev/BruhOS.git
 ```
@@ -17,9 +17,9 @@ After installing the cross compiler, you can run `make run`
 
 ### Setup
 
-Running the `install.sh` script will install the cross compiler at `~/.local/bin/cross_compiler/x86_64/`. It includes gcc, gdb, and binutils. The cross compiler binaries have the prefix `x86-64-elf-`. So for example, to run gcc, you will have to run `~/.local/bin/cross_compiler/x86_64/bin/x86-64-elf-gcc`.
+Running the `toolchain.sh` script will install the cross compiler at `~/.local/bin/cross_compiler/x86_64/`. It includes gcc, gdb, and binutils. The cross compiler binaries have the prefix `x86-64-elf-`. So for example, to run gcc, you will have to run `~/.local/bin/cross_compiler/x86_64/bin/x86-64-elf-gcc`.
 
-As of writing, the latest gcc, dgb and binutils versions are 10.2.0, 9.2 and 2.35 respectively. If you want a different version, replace the `BINUTILSVERSION`, `GCCVERSION`, and `GDBVERSION` variables in the same `install.sh` script.
+As of writing, the latest gcc, dgb and binutils versions are 10.2.0, 9.2 and 2.35 respectively. If you want a different version, replace the `BINUTILSVERSION`, `GCCVERSION`, and `GDBVERSION` variables in the same `toolchain.sh` script.
 
 **Note:** Don't run this script as superuser. Running the script will require a stable internet connection and a cup of coffee because it takes a while ;)
 

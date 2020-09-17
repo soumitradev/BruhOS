@@ -2,3 +2,4 @@ build/*
 kernel.elf
 *.o
 .vscode
+logs

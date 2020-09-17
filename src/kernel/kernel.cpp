@@ -1,6 +1,8 @@
 #include <kernel/boot/stivale.hpp>
 #include <kernel/drivers/screen.hpp>
 
+extern "C" void init_gdt();
+
 static char stack[4096] = {0};
 
 __attribute__((section(".stivalehdr"), used)) struct stivale_header header = {
@@ -12,6 +14,7 @@ __attribute__((section(".stivalehdr"), used)) struct stivale_header header = {
     .entry_point = 0};
 
 extern "C" void kmain(struct stivale_struct* bootloader_data) {
-  gdt.gdtInit();
+  init_gdt();
+  test();
   asm volatile("hlt");
 }
