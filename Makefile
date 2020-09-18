@@ -14,11 +14,10 @@ QEMU_LOG_FLAGS = -no-reboot \
 	-d int                    \
 	-D logs/qemu.log
 
+CXXFLAGS = -O2 -pipe -Wall -Wextra
 
 CXXHARDFLAGS := $(CXXFLAGS)      \
-	-DBUILD_TIME='"$(BUILD_TIME)"' \
 	-std=c++17                     \
-	-masm=intel                    \
 	-fno-pic                       \
 	-mno-sse                       \
 	-mno-sse2                      \
@@ -28,10 +27,10 @@ CXXHARDFLAGS := $(CXXFLAGS)      \
 	-mcmodel=kernel                \
 	-ffreestanding                 \
 	-fno-stack-protector           \
-	-fno-omit-frame-pointer        \
 	-Isrc                          \
 
 LDHARDFLAGS := $(LDFLAGS)   \
+	-static                   \
 	-nostdlib                 \
 	-no-pie                   \
 	-z max-page-size=0x1000   \
@@ -73,6 +72,7 @@ limine/limine-install:
 
 $(KERNEL_HDD): $(KERNEL_ELF) limine/limine-install 
 	-mkdir -p build
+	rm -f $(KERNEL_HDD)
 	dd if=/dev/zero bs=1M count=0 seek=64 of=$(KERNEL_HDD)
 	parted -s $(KERNEL_HDD) mklabel msdos
 	parted -s $(KERNEL_HDD) mkpart primary 1 100%

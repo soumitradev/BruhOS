@@ -11,15 +11,24 @@ git clone --recursive https://github.com/soumitradev/BruhOS.git
 
 ## Building
 
-Setting up a cross compiler is **strongly recommended** if you want to compile this project. A basic `install.sh` file is included in the root of this repo that installs a cross compiler for the x86_64 platform for elf files.
+Setting up a cross compiler is **strongly recommended** if you want to compile this project. A basic `toolchain.sh` file is included in the root of this repo that installs a cross compiler for the x86_64 platform for elf files.
 
-After installing the cross compiler, you can run `make run`
+After installing the cross compiler, you can run `make run` to run the OS in qemu.
+
+As of now, the following make commands are available:
+- `make disk`: Make the .hdd file for the OS. That's it.
+- `make all`: Make the .hdd file for the OS. That's it.
+- `make run`: Make the .hdd file for the OS and run it in qemu.
+- `make logs`: Make the .hdd file for the OS, run it, and let qemu generate logs.
+- `make log`: Make the .hdd file for the OS, run it, and let qemu generate logs.
+- `make debug`: Make the .hdd file for the OS, run it, and attach it to gdb for debugging.
+- `make clean`: Clean the working directory and remove all build artefacts.
 
 ### Setup
 
-Running the `toolchain.sh` script will install the cross compiler at `~/.local/bin/cross_compiler/x86_64/`. It includes gcc, gdb, and binutils. The cross compiler binaries have the prefix `x86-64-elf-`. So for example, to run gcc, you will have to run `~/.local/bin/cross_compiler/x86_64/bin/x86-64-elf-gcc`.
+Running the `toolchain.sh` script will install the cross compiler at `~/.local/bin/cross_compiler/x86_64/`. It includes gcc, gdb, and binutils. The cross compiler binaries have the prefix `x86-64-elf-`. So for example, to run `gcc`, you will have to run `~/.local/bin/cross_compiler/x86_64/bin/x86-64-elf-gcc`. Note how the prefix is prepended to the binary we want to run.
 
-As of writing, the latest gcc, dgb and binutils versions are 10.2.0, 9.2 and 2.35 respectively. If you want a different version, replace the `BINUTILSVERSION`, `GCCVERSION`, and `GDBVERSION` variables in the same `toolchain.sh` script.
+As of writing, the latest gcc, gdb and binutils versions are 10.2.0, 9.2 and 2.35 respectively. If you want a different version, replace the `BINUTILSVERSION`, `GCCVERSION`, and `GDBVERSION` variables in the same `toolchain.sh` script.
 
 **Note:** Don't run this script as superuser. Running the script will require a stable internet connection and a cup of coffee because it takes a while ;)
 
