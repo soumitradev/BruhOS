@@ -5,6 +5,7 @@ I tried making an OS in [assembly-fun](https://github.com/soumitradev/assembly-f
 I'm using the [limine bootloader](https://github.com/limine-bootloader/limine) with the stivale protocol.
 
 Since this repo uses Limine as a submodule, you will have to clone this repo recursively using:
+
 ```
 git clone --recursive https://github.com/soumitradev/BruhOS.git
 ```
@@ -16,6 +17,7 @@ Setting up a cross compiler is **strongly recommended** if you want to compile t
 After installing the cross compiler, you can run `make run` to run the OS in qemu.
 
 As of now, the following make commands are available:
+
 - `make all`: Make the .hdd file for the OS. That's it.
 - `make disk`: Make the .hdd file for the OS. That's it.
 - `make run`: Make the .hdd file for the OS and run it in qemu.
@@ -33,6 +35,7 @@ As of writing, the latest gcc, gdb and binutils versions are 10.2.0, 9.2 and 2.3
 **Note:** Don't run this script as superuser. Running the script will require a stable internet connection and a cup of coffee because it takes a while ;)
 
 ## Contributions
+
 All files use the C++ 17 standard, don't use any standard library except libgcc (obvious for OS/Kernel development). All object files and kernel build files should be cleaned before commit using `make clean` or manually deleting the files. The gitignore includes some basic filters, but always double check you aren't committing any build artefacts.
 
 All files except the Makefile are space indented with an Indent with of 2 spaces. Yes, I like 4 spaces, but having some previous experience, this can generate huge tree like structures, and it looks cleaner with 2 space indentation. The Makefile requires tab indentation by definition. Formatting it will cause it to break.

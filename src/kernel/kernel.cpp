@@ -1,5 +1,6 @@
 #include <kernel/boot/stivale.hpp>
 #include <kernel/drivers/screen.hpp>
+#include <lib/memutils.hpp>
 
 extern "C" void init_gdt();
 
@@ -16,5 +17,6 @@ __attribute__((section(".stivalehdr"), used)) struct stivale_header header = {
 extern "C" void kmain(struct stivale_struct* bootloader_data) {
   init_gdt();
   print("Hello, World!");
-  for(;;);
+  for (;;)
+    ;
 }
