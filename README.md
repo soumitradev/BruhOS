@@ -16,11 +16,11 @@ Setting up a cross compiler is **strongly recommended** if you want to compile t
 After installing the cross compiler, you can run `make run` to run the OS in qemu.
 
 As of now, the following make commands are available:
-- `make disk`: Make the .hdd file for the OS. That's it.
 - `make all`: Make the .hdd file for the OS. That's it.
+- `make disk`: Make the .hdd file for the OS. That's it.
 - `make run`: Make the .hdd file for the OS and run it in qemu.
-- `make logs`: Make the .hdd file for the OS, run it, and let qemu generate logs.
 - `make log`: Make the .hdd file for the OS, run it, and let qemu generate logs.
+- `make logs`: Make the .hdd file for the OS, run it, and let qemu generate logs.
 - `make debug`: Make the .hdd file for the OS, run it, and attach it to gdb for debugging.
 - `make clean`: Clean the working directory and remove all build artefacts.
 

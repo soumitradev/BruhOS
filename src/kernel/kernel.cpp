@@ -15,6 +15,6 @@ __attribute__((section(".stivalehdr"), used)) struct stivale_header header = {
 
 extern "C" void kmain(struct stivale_struct* bootloader_data) {
   init_gdt();
-  test();
-  asm volatile("hlt");
+  print("Hello, World!");
+  for(;;);
 }
