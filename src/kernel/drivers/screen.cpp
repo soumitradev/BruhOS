@@ -1,5 +1,6 @@
 #include <kernel/cpu/ports.hpp>
 #include <kernel/drivers/screen.hpp>
+#include <lib/memutils.hpp>
 
 // Print functions
 
@@ -33,20 +34,20 @@ int print_char(char chr, int col, int row, char attr) {
   }
 
   // If offset is out of bounds,
-  // if (offset >= MAX_ROWS * MAX_COLS * 2) {
-  //   // Copy rows to previous row
-  //   int i;
-  //   for (i = 1; i < MAX_ROWS; i++)
-  //     memory_copy(get_offset(0, i) + VGA_ADDRESS,
-  //                 get_offset(0, i - 1) + VGA_ADDRESS, MAX_COLS * 2);
+  if (offset >= MAX_ROWS * MAX_COLS * 2) {
+    // Copy rows to previous row
+    int i;
+    for (i = 1; i < MAX_ROWS; i++)
+      memory_copy(get_offset(0, i) + VGA_ADDRESS,
+                  get_offset(0, i - 1) + VGA_ADDRESS, MAX_COLS * 2);
 
-  //   // Make last line blank
-  //   char *last_line = get_offset(0, MAX_ROWS - 1) + VGA_ADDRESS;
-  //   for (i = 0; i < MAX_COLS * 2; i++) last_line[i] = 0;
+    // Make last line blank
+    char *last_line = get_offset(0, MAX_ROWS - 1) + VGA_ADDRESS;
+    for (i = 0; i < MAX_COLS * 2; i++) last_line[i] = 0;
 
-  //   // Move cursor to last line instead of the line outside display
-  //   offset -= 2 * MAX_COLS;
-  // }
+    // Move cursor to last line instead of the line outside display
+    offset -= 2 * MAX_COLS;
+  }
   // Move cursor to next char, and return offset of next char
   set_cursor(offset);
   return offset;

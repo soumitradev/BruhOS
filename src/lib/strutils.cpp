@@ -39,3 +39,19 @@ char *strcpy(char *dest, const char *src) {
 
   return dest;
 }
+
+void rev_str(char *s) {
+  int i, j;
+  for (i = 0, j = strlen(s) - 1; i < j; i++, j--) {
+    s[i] ^= s[j];
+    s[j] ^= s[i];
+    s[i] ^= s[j];
+  }
+}
+
+char *concat(char *str1, const char *str2) {
+  uint64_t l1 = strlen(str1);
+  uint64_t l2 = strlen(str2);
+  strcpy(&str1[l1], str2);
+  return str1;
+}

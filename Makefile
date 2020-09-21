@@ -1,10 +1,11 @@
-
 CXXFILES  := $(shell find src/ -type f -name '*.cpp')
 ASMFILES  := $(shell find src/ -type f -name '*.asm')
 CXXC       = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-g++
 GDB       = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-gdb
 LD         = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-ld
 OBJ       := ${CXXFILES:.cpp=.o} $(ASMFILES:.asm=.o)
+
+$(info $$OBJ is [${OBJ}])
 
 KERNEL_HDD = build/disk.hdd
 KERNEL_ELF = kernel.elf
@@ -56,6 +57,7 @@ debug: $(KERNEL_HDD)
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file $(KERNEL_ELF)"
 
 log: $(KERNEL_HDD)
+	-mkdir -p logs
 	qemu-system-x86_64 $(QEMU_LOG_FLAGS) -m 2G -drive format=raw,media=disk,index=0,file=$(KERNEL_HDD)
 
 %.o: %.asm
