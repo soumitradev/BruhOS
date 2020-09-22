@@ -51,7 +51,6 @@ void rev_str(char *s) {
 
 char *concat(char *str1, const char *str2) {
   uint64_t l1 = strlen(str1);
-  uint64_t l2 = strlen(str2);
   strcpy(&str1[l1], str2);
   return str1;
 }

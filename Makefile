@@ -5,8 +5,6 @@ GDB       = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-gdb
 LD         = ~/.local/bin/cross_compiler/x86_64/bin/x86_64-elf-ld
 OBJ       := ${CXXFILES:.cpp=.o} $(ASMFILES:.asm=.o)
 
-$(info $$OBJ is [${OBJ}])
-
 KERNEL_HDD = build/disk.hdd
 KERNEL_ELF = kernel.elf
 
