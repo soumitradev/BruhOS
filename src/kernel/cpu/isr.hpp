@@ -1,10 +1,13 @@
 #pragma once
 
 #include <stdint.h>
+#include <stddef.h>
 
 #include <kernel/cpu/idt.hpp>
 #include <kernel/drivers/screen.hpp>
+#include <kernel/drivers/keyboard.hpp>
 #include <lib/strutils.hpp>
+#include <kernel/cpu/reg.hpp>
 
 // The isr handlers we wrote in assembly
 
@@ -265,37 +268,8 @@ extern "C" void isr253();
 extern "C" void isr254();
 extern "C" void isr255();
 
-// Structure of all registers
-struct registers_t {
-  // uint64_t ds;
-  // uint64_t rdi, rsi, rbp, rsp, rbx, rdx, rcx, rax;
-  // uint64_t int_no, err_code;
-  // uint64_t eip, cs, eflags, useresp, ss;
 
-  uint64_t r15;
-  uint64_t r14;
-  uint64_t r13;
-  uint64_t r12;
-  uint64_t r11;
-  uint64_t r10;
-  uint64_t r9;
-  uint64_t r8;
-  uint64_t rsi;
-  uint64_t rdi;
-  uint64_t rbp;
-  uint64_t rdx;
-  uint64_t rcx;
-  uint64_t rbx;
-  uint64_t rax;
-  uint64_t core;
-  uint64_t isrNumber;
-  uint64_t errorCode;
-  uint64_t rip;
-  uint64_t cs;
-  uint64_t rflags;
-  uint64_t rsp;
-  uint64_t ss;
-} __attribute__((packed));
+typedef void (*eventHandlers_t)(registers_t*);
 
 inline const char *exceptionMessages[] = {"Divide by zero",
                                           "Debug",
@@ -336,3 +310,38 @@ inline const char *exceptionMessages[] = {"Divide by zero",
 // Functions
 void isr_install();
 extern "C" void isr_handler(registers_t *r);
+
+inline eventHandlers_t eventHandlers[] =   {
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 8
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 16
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 24
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 32
+                                        NULL, keyboard_handler, NULL, NULL, NULL, NULL, NULL, NULL, // 40
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 48
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 56
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 64
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 72
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 80
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 88
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 96
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 104
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 112
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                                    };

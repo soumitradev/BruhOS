@@ -297,4 +297,7 @@ extern "C" void isr_handler(registers_t *r) {
     for (;;)
       ;
   }
+
+  if (eventHandlers[r->isrNumber] != NULL)
+    eventHandlers[r->isrNumber](r);
 }
