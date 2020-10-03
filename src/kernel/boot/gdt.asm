@@ -50,6 +50,14 @@ DATA_SEG equ kernel_data - gdt
 global init_gdt
 init_gdt:
   lgdt [gdt_ptr]
+  mov rax, rsp
+  push DATA_SEG
+  push rax
+  pushfq
+  push CODE_SEG
+  push flush
+  iretq
+  flush:
   mov ax, DATA_SEG
   mov ds, ax
   mov es, ax

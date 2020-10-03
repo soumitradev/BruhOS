@@ -280,20 +280,6 @@ extern "C" void isr_handler(registers_t *r) {
              0x4f);
     print("\n", 0);
 
-    // Printf later 😳
-
-    // printf("LMAOOO get rekt; you got a <%s> on core %d and error code %x",
-    //        exceptionMessages[r->isrNumber], r->core, r->errorCode);
-    // printf("RAX: %i | RBX: %i | RCX: %i | RDX: %i", r->rax, r->rbx, r->rcx,
-    //        r->rdx);
-    // printf("RSI: %i | RDI: %i | RBP: %i | RSP: %i", r->rsi, r->rdi, r->rbp,
-    //        r->rsp);
-    // printf("r8:  %i | r9:  %i | r10: %i | r11: %i", r->r8, r->r9, r->r10,
-    //        r->r11);
-    // printf("r12: %i | r13: %i | r14: %i | r15: %i", r->r12, r->r13, r->r14,
-    //        r->r15);
-    // printf("cs:  %i | ss:  %i | cr2: %i | rip: %i", r->cs, r->ss, cr2,
-    // r->rip);
     for (;;)
       ;
   }

@@ -28,10 +28,10 @@ void keyboard_handler(registers_t *r) {
   uint8_t keycode = port_byte_in(0x60);
 
   switch (keycode) {
-    case 0xaa:  // left shift release
+    case 0xaa:  // left shift up
       upkey = false;
       break;
-    case 0x2a:  // left shift press
+    case 0x2a:  // left shift down
       upkey = true;
       break;
     case 0xf:  // tab

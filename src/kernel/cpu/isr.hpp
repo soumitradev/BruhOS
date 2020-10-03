@@ -8,6 +8,7 @@
 #include <kernel/drivers/keyboard.hpp>
 #include <lib/strutils.hpp>
 #include <kernel/cpu/reg.hpp>
+#include <kernel/cpu/pit.hpp>
 
 // The isr handlers we wrote in assembly
 
@@ -311,21 +312,22 @@ inline const char *exceptionMessages[] = {"Divide by zero",
 void isr_install();
 extern "C" void isr_handler(registers_t *r);
 
+// Map handlers
 inline eventHandlers_t eventHandlers[] =   {
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 8
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 16
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 24
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 32
-                                        NULL, keyboard_handler, NULL, NULL, NULL, NULL, NULL, NULL, // 40
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 48
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 56
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 64
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 72
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 80
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 88
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 96
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 104
-                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, // 112
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        timer_handler, keyboard_handler, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                         NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                         NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                         NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,

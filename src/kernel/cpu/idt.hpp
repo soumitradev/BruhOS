@@ -4,7 +4,7 @@
 
 #define KERNEL_CS 0x08
 
-// Structure of an idt gates
+// Structure of an idt gate
 typedef struct {
   uint16_t low_offset;
   uint16_t sel;

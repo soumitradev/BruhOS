@@ -1,5 +1,7 @@
 #include <kernel/boot/stivale.hpp>
 #include <kernel/cpu/isr.hpp>
+#include <kernel/cpu/pit.hpp>
+#include <kernel/cpu/ports.hpp>
 #include <kernel/drivers/screen.hpp>
 #include <lib/strutils.hpp>
 
@@ -18,6 +20,7 @@ __attribute__((section(".stivalehdr"), used)) struct stivale_header header = {
 extern "C" void kmain(struct stivale_struct* bootloader_data) {
   init_gdt();
   isr_install();
+  set_pit_freq(100);
   print("BruhOS", VGA_COLOR(VGA_BLACK, VGA_GREEN));
   for (;;)
     ;

@@ -8,22 +8,8 @@ section .text
 isr_common_format:
   cli
   pushall
-  ; mov ax, ds
-  ; push rax
-  ; mov ax, 0x10
-  ; mov ds, ax
-  ; mov es, ax
-  ; mov fs, ax
-  ; mov gs, ax
   mov rdi, rsp 
-
   call isr_handler
-
-  ; pop rax
-  ; mov ds, ax
-  ; mov es, ax
-  ; mov fs, ax
-  ; mov gs, ax
   popall
   add rsp, 24
   sti
@@ -36,7 +22,7 @@ global isr%1
 isr%1:
   push 0
   push %1
-  push fs 
+  push fs
   jmp isr_common_format
 
 %endmacro

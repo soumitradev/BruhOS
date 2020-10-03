@@ -3,11 +3,6 @@
 
 // Structure of all registers
 struct registers_t {
-  // uint64_t ds;
-  // uint64_t rdi, rsi, rbp, rsp, rbx, rdx, rcx, rax;
-  // uint64_t int_no, err_code;
-  // uint64_t eip, cs, eflags, useresp, ss;
-
   uint64_t r15;
   uint64_t r14;
   uint64_t r13;
