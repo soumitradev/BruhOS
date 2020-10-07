@@ -10,7 +10,7 @@ TARGET=x86_64-elf
 BINUTILSVERSION=2.35
 GCCVERSION=10.2.0
 GDBVERSION=9.2
-
+MultTHREADS=9
 
 if [ -z "$MAKEFLAGS" ]; then
 	MAKEFLAGS="$1"
@@ -50,8 +50,8 @@ rm -rf build-gcc build-binutils build-gdb
 mkdir build-binutils
 cd build-binutils
 ../binutils-$BINUTILSVERSION/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
-make
-make install
+make -j"$THREADS"
+make install -j"$THREADS"
 cd ..
 
 cd gcc-$GCCVERSION
@@ -60,15 +60,15 @@ cd ..
 mkdir build-gcc
 cd build-gcc
 ../gcc-$GCCVERSION/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
-make all-gcc
-make all-target-libgcc
-make install-gcc
-make install-target-libgcc
+make all-gcc -j"$THREADS"
+make all-target-libgcc -j"$THREADS"
+make install-gcc -j"$THREADS"
+make install-target-libgcc -j"$THREADS"
 cd ..
 
 mkdir build-gdb
 cd build-gdb
 ../gdb-$GCCVERSION/configure --target=$TARGET --prefix="$PREFIX"
-make
-make install
+make -j"$THREADS"
+make install -j"$THREADS"
 cd ..

@@ -30,6 +30,8 @@ As of now, the following make commands are available:
 
 Running the `toolchain.sh` script will install the cross compiler at `~/.local/bin/cross_compiler/x86_64/`. It includes gcc, gdb, and binutils. The cross compiler binaries have the prefix `x86-64-elf-`. So for example, to run `gcc`, you will have to run `~/.local/bin/cross_compiler/x86_64/bin/x86-64-elf-gcc`. Note how the prefix is prepended to the binary we want to run.
 
+**NOTE:** To make this process faster, you will have to set the number of threads as a variable, which is usually 1 more than the number of threads your machine has. My machine has 8 threads, so I set the `THREADS` variable in the `toolchain.sh` script to 9. Please check the number of threads you have, and change that variable in the `toolchain.sh` script accordingly.
+
 As of writing, the latest gcc, gdb and binutils versions are 10.2.0, 9.2 and 2.35 respectively. If you want a different version, replace the `BINUTILSVERSION`, `GCCVERSION`, and `GDBVERSION` variables in the same `toolchain.sh` script.
 
 **Note:** Don't run this script as superuser. Running the script will require a stable internet connection and a cup of coffee because it takes a while ;)
