@@ -20,8 +20,12 @@ __attribute__((section(".stivalehdr"), used)) struct stivale_header header = {
 extern "C" void kmain(struct stivale_struct* bootloader_data) {
   init_gdt();
   isr_install();
-  set_pit_freq(100);
-  print("BruhOS", VGA_COLOR(VGA_BLACK, VGA_GREEN));
+  asm volatile("sti");
+  set_pit_freq(1000);
+  print("BruhOS\n", VGA_COLOR(VGA_BLACK, VGA_GREEN));
+  print("| Version: 0.0.1a\n", VGA_COLOR(VGA_BLACK, VGA_WHITE));
+  print("| Arch: x86_64\n", VGA_COLOR(VGA_BLACK, VGA_WHITE));
+  print("| Resolution: 80x25\n", VGA_COLOR(VGA_BLACK, VGA_WHITE));
   for (;;)
     ;
 }

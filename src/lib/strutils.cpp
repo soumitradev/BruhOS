@@ -1,7 +1,7 @@
 #include <lib/strutils.hpp>
 
 char *itob(uint64_t num, uint64_t base) {
-  static char hold[] = "0123456789ABCDEF";
+  static char hold[] = "0123456789ABCDEFGHIJKLMNOPQRTSUVWXYZ";
   static char buffer[50];
   char *str;
 

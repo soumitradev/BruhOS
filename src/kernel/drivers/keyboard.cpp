@@ -38,10 +38,10 @@ void keyboard_handler(registers_t *r) {
       for (int i = 0; i < 4; i++) func(' ');
       break;
     case 0xe:  // backspace
-      func('\b');
+      backspace_handler();
       break;
-    case 0x1c:
-      func(0x1c);
+    case 0x1c: // enter
+      print("\n");
       break;
     default:
       if (keycode <= 128) {

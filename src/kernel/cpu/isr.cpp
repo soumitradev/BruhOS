@@ -1,4 +1,5 @@
 #include <kernel/cpu/isr.hpp>
+#include <kernel/cpu/ports.hpp>
 
 // Install all the idts, and map them to appropriate functions
 void isr_install() {
@@ -34,6 +35,19 @@ void isr_install() {
   set_idt_gate(29, (uint64_t)isr29);
   set_idt_gate(30, (uint64_t)isr30);
   set_idt_gate(31, (uint64_t)isr31);
+
+  // Remap the PIC
+  port_byte_out(0x20, 0x11);
+  port_byte_out(0xA0, 0x11);
+  port_byte_out(0x21, 0x20);
+  port_byte_out(0xA1, 0x28);
+  port_byte_out(0x21, 0x04);
+  port_byte_out(0xA1, 0x02);
+  port_byte_out(0x21, 0x01);
+  port_byte_out(0xA1, 0x01);
+  port_byte_out(0x21, 0x0);
+  port_byte_out(0xA1, 0x0);
+
   set_idt_gate(32, (uint64_t)isr32);
   set_idt_gate(33, (uint64_t)isr33);
   set_idt_gate(34, (uint64_t)isr34);
@@ -283,7 +297,10 @@ extern "C" void isr_handler(registers_t *r) {
     for (;;)
       ;
   }
+  // After every interrupt send an EOI to the PICs or they will not send another interrupt again
+  port_byte_out(0xA0, 0x20);
+  port_byte_out(0x20, 0x20);
 
-  if (eventHandlers[r->isrNumber] != NULL)
-    eventHandlers[r->isrNumber](r);
+  // Handle le isr
+  if (eventHandlers[r->isrNumber] != NULL) eventHandlers[r->isrNumber](r);
 }

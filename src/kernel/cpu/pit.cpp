@@ -7,8 +7,6 @@ volatile uint64_t global_tick = 0;
 
 void timer_handler(registers_t *r) {
   global_tick++;
-  print("Tick: ");
-  print(itob(global_tick, 10));
 }
 
 void set_pit_freq(uint64_t freq) {
