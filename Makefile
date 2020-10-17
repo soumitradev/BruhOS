@@ -8,7 +8,12 @@ OBJ       := ${CXXFILES:.cpp=.o} $(ASMFILES:.asm=.o)
 KERNEL_HDD = build/disk.hdd
 KERNEL_ELF = kernel.elf
 
-QEMU_LOG_FLAGS = -no-reboot \
+QEMU_FLAGS = -m 2G                                          \
+	-drive format=raw,media=disk,index=0,file=$(KERNEL_HDD) \
+	-enable-kvm                                             \
+	-cpu host
+
+QEMU_LOG_FLAGS = -no-reboot   \
 	-monitor stdio            \
 	-d int                    \
 	-D logs/qemu.log
@@ -48,15 +53,15 @@ all: disk
 logs: log
 
 run: $(KERNEL_HDD)
-	qemu-system-x86_64 -m 2G -drive format=raw,media=disk,index=0,file=$(KERNEL_HDD)
+	qemu-system-x86_64 $(QEMU_FLAGS)
 
 debug: $(KERNEL_HDD)
-	qemu-system-x86_64 -s -m 2G -drive format=raw,media=disk,index=0,file=$(KERNEL_HDD) &
+	qemu-system-x86_64 -s $(QEMU_FLAGS) &
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file $(KERNEL_ELF)"
 
 log: $(KERNEL_HDD)
 	-mkdir -p logs
-	qemu-system-x86_64 $(QEMU_LOG_FLAGS) -m 2G -drive format=raw,media=disk,index=0,file=$(KERNEL_HDD)
+	qemu-system-x86_64 $(QEMU_LOG_FLAGS) $(QEMU_FLAGS)
 
 %.o: %.asm
 	nasm $(NASMFLAGS) $< -o $@
@@ -79,6 +84,7 @@ $(KERNEL_HDD): $(KERNEL_ELF) limine/limine-install
 	echfs-utils -m -p0 $(KERNEL_HDD) quick-format 32768
 	echfs-utils -m -p0 $(KERNEL_HDD) import $(KERNEL_ELF) $(KERNEL_ELF)
 	echfs-utils -m -p0 $(KERNEL_HDD) import limine.cfg limine.cfg
+	echfs-utils -m -p0 $(KERNEL_HDD) import bg.bmp bg.bmp
 	limine/limine-install limine/limine.bin $(KERNEL_HDD)
 
 clean:
