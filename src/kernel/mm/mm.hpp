@@ -1,0 +1,6 @@
+#pragma once
+
+#define PAGE_SIZE 0x1000
+
+#define KERNEL_VIRT_ADDR_TOP 0xffffffff80000000
+#define KERNEL_VIRT_ADDR_BASE 0xffff800000000000

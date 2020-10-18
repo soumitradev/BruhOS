@@ -36,3 +36,10 @@ struct stivale_struct {
   uint64_t epoch;
   uint64_t flags;  // bit 0: 1 if booted with BIOS, 0 if booted with UEFI
 } __attribute__((packed));
+
+struct stivale_mmap_entry_t {
+  uint64_t addr;
+  uint64_t len;
+  uint32_t type;
+  uint32_t unused;
+} __attribute__((packed));
