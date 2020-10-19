@@ -36,6 +36,27 @@ As of writing, the latest gcc, gdb and binutils versions are 10.2.0, 9.2 and 2.3
 
 **Note:** Don't run this script as superuser. Running the script will require a stable internet connection and a cup of coffee because it takes a while ;)
 
+## Acknowledgements
+
+[Limine](https://github.com/limine-bootloader/limine) is the most epic bootloader to ever exist.
+
+[qword](https://github.com/qword-os/qword), [rock](https://github.com/ethan4984/rock), and [DripOS](https://github.com/Menotdan/DripOS) were very helpful. This code is pretty much a clusterfuck of their code. Their code is well written, easy to understand and is overall a great place to start learning OSDev.
+
+The [OSDev Discord server](https://discord.gg/RnCtsqD) is also a great place to learn, ask questions, and is generally a great community.
+
+## Screenshots
+
+Screenshots because it's just not worth the time spent getting the toolchain to test out a half-finished kernel.
+
+### Limine boot screen:
+
+![](./boot.png)
+
+
+### Kernel:
+
+![](./kernel.png)
+
 ## Contributions
 
 All files use the C++ 17 standard, don't use any standard library except libgcc (obvious for OS/Kernel development). All object files and kernel build files should be cleaned before commit using `make clean` or manually deleting the files. The gitignore includes some basic filters, but always double check you aren't committing any build artefacts.
