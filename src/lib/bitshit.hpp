@@ -14,6 +14,6 @@ class BitMap {
   BitMap(uint8_t *base, uint64_t size);
   void set_bit(uint64_t idx);
   void clr_bit(uint64_t idx);
-  uint8_t get_bit(uint64_t idx);
-  void print_bmp();
+  bool get_bit(uint64_t idx);
+  void print_bmp(uint64_t start, uint64_t length);
 };

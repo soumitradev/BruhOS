@@ -21,14 +21,16 @@ void BitMap::clr_bit(uint64_t idx) {
   bitmap_base[byte] &= ~(1 << bit);
 }
 
-uint8_t BitMap::get_bit(uint64_t idx) {
+bool BitMap::get_bit(uint64_t idx) {
   uint8_t bit = idx % 8;
   uint64_t byte = idx / 8;
-  return bitmap_base[byte] & (1 << bit);
+  return (bitmap_base[byte] >> bit) & 0x1;
 }
 
-void BitMap::print_bmp() {
-  for (uint64_t i = 0; i < size; i++) {
+void BitMap::print_bmp(uint64_t start, uint64_t length) {
+  for (uint64_t i = start; i < start + length; i++) {
+    print("\n");
     print(itob(get_bit(i), 2));
+    print("\n");
   }
 }
