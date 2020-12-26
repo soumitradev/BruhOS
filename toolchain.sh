@@ -47,7 +47,7 @@ tar -xf gdb-$GDBVERSION.tar.gz
 
 rm -rf build-gcc build-binutils build-gdb
 
-mkdir build-binutils
+mkdir -p build-binutils
 cd build-binutils
 ../binutils-$BINUTILSVERSION/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
 make -j"$THREADS"
@@ -57,7 +57,7 @@ cd ..
 cd gcc-$GCCVERSION
 contrib/download_prerequisites
 cd ..
-mkdir build-gcc
+mkdir -p build-gcc
 cd build-gcc
 ../gcc-$GCCVERSION/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
 make all-gcc -j"$THREADS"
@@ -66,9 +66,9 @@ make install-gcc -j"$THREADS"
 make install-target-libgcc -j"$THREADS"
 cd ..
 
-mkdir build-gdb
+mkdir -p build-gdb
 cd build-gdb
-../gdb-$GCCVERSION/configure --target=$TARGET --prefix="$PREFIX"
+../gdb-$GDBVERSION/configure --target=$TARGET --prefix="$PREFIX"
 make -j"$THREADS"
 make install -j"$THREADS"
 cd ..
