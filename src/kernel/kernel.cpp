@@ -19,6 +19,7 @@ __attribute__((section(".stivalehdr"), used)) struct stivale_header header = {
     .entry_point = 0};
 
 extern "C" void kmain(struct stivale_struct* bootloader_data) {
+  clr_scr();
   init_gdt();
   print("[KERNEL] ", VGA_COLOR(VGA_BLACK, VGA_LIGHT_RED));
   print("GDT Loaded.\n");
@@ -32,6 +33,7 @@ extern "C" void kmain(struct stivale_struct* bootloader_data) {
   init_pmm(bootloader_data);
   print("[KMM] ", VGA_COLOR(VGA_BLACK, VGA_LIGHT_RED));
   print("PMM ready.\n");
+  print(">");
 
   // print("BruhOS\n", VGA_COLOR(VGA_BLACK, VGA_GREEN));
   // print("| Version: 0.0.1a\n", VGA_COLOR(VGA_BLACK, VGA_WHITE));

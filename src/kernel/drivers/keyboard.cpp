@@ -3,6 +3,7 @@
 #include <kernel/cpu/ports.hpp>
 #include <kernel/drivers/keyboard.hpp>
 #include <kernel/drivers/screen.hpp>
+#include <kernel/shell/commands.hpp>
 
 void func(char c) {
   char n[] = {c, '\0'};
@@ -38,10 +39,14 @@ void keyboard_handler(registers_t *r) {
       for (int i = 0; i < 4; i++) func(' ');
       break;
     case 0xe:  // backspace
-      backspace_handler();
+      if (get_offset_col(get_cursor_offset()) > 1) {
+        backspace_handler();
+      }
       break;
-    case 0x1c: // enter
+    case 0x1c:  // enter
       print("\n");
+      process_cmd(get_offset_row(get_cursor_offset()) - 1);
+      print("\n>");
       break;
     default:
       if (keycode <= 128) {
