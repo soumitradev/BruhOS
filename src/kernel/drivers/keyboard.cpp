@@ -5,7 +5,7 @@
 #include <kernel/drivers/screen.hpp>
 #include <kernel/shell/commands.hpp>
 
-void func(char c) {
+void print_chr(char c) {
   char n[] = {c, '\0'};
   print(n);
 }
@@ -36,7 +36,7 @@ void keyboard_handler(registers_t *r) {
       upkey = true;
       break;
     case 0xf:  // tab
-      for (int i = 0; i < 4; i++) func(' ');
+      for (int i = 0; i < 4; i++) print_chr(' ');
       break;
     case 0xe:  // backspace
       if (get_offset_col(get_cursor_offset()) > 1) {
@@ -51,10 +51,10 @@ void keyboard_handler(registers_t *r) {
     default:
       if (keycode <= 128) {
         if (upkey) {
-          func(capKeyMap[keycode]);
+          print_chr(capKeyMap[keycode]);
           break;
         }
-        func(keyMap[keycode]);
+        print_chr(keyMap[keycode]);
       }
   }
 }
